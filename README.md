@@ -10,6 +10,11 @@
 
 
 # NOTES
+
+## Listen to
+docker run --detach -P jmalloc/echo-server
+
+
 ## Building images
 For testing, the image is built locally.
 
@@ -27,6 +32,7 @@ docker build -t ${DOCKER_ID_USER}/${DOCKER_CONTAINER_NAME}:latest ./$DOCKER_IMAG
 ## Table of Content
 - [dev-random](#dev-random)
 - [NOTES](#notes)
+  - [Listen to](#listen-to)
   - [Building images](#building-images)
   - [Table of Content](#table-of-content)
   - [Description](#description)

@@ -34,8 +34,10 @@ build-nc: ## Build the container without caching
 	docker build --no-cache -t $(APP_NAME) .
 
 run: ## Run container on port configured in `config.env`
-	docker run -i -t --rm --env-file=./config.env -p=$(PORT):$(PORT) --name="$(APP_NAME)" $(APP_NAME)
+	docker run -i -t --rm --env-file=./config.env -p $(PORT):$(PORT) --name="$(APP_NAME)" $(APP_NAME)
 
+listen: ## Pull and start a listener
+	docker run --detach -e PORT=$(PORT) -e LOG_HTTP_BODY -e LOG_HTTP_HEADERS -p $(PORT):$(PORT) jmalloc/echo-server
 
 up: build run ## Run container on port configured in `config.env` (Alias to run)
 
