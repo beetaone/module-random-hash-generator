@@ -1,6 +1,6 @@
 FROM alpine:edge
 
-RUN apk --no-cache add curl
+RUN apk --no-cache add curl jq
 
 # EXPOSE 1883 9001
 
