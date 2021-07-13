@@ -4,15 +4,20 @@ echo $# Args: $@
 echo "Environment:"
 env
 
+if test [ -f /mounted ] ; then
+    echo "Mounted"
+fi
+
 # echo head -n 4096 /dev/urandom | sha256sum
 # mystring=$(head -n 4096 /dev/urandom | sha256sum) | cut -f 1 -d " "
 
 # Get 4096 bytes of random data. Take the 256 hash. Do not keep the dash after the string. Assign to variable.
-mystring=$(head -n 4096 /dev/urandom | sha256sum | cut -f 1 -d " ")
-echo $mystring
+randomstring=$(head -n 4096 /mounted | sha256sum | cut -f 1 -d " ")
+# echo $mystring
+echo $randomstring
 
 # Build a JSON string. The JSON data may have spaces, newlines, etc.
-JSON_STRING=$( jq -n -r --arg hs "$mystring" '{"random hash": $hs}' )
+JSON_STRING=$( jq -n -r --arg hs "$randomstring" '{"random hash": $hs}' )
 echo $JSON_STRING
 
 # Can't simply use -d $JSON_STRING, as this has newlines, spaces.
