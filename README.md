@@ -44,20 +44,3 @@ The `curl` utility is used to send HTTP data as a POST request. To avoid escapin
 
 `echo $JSON_STRING | curl -d @- -H "Content-Type: application/json" -X POST http://url:port`
 
-# Listen to
-
-docker network create mjnet
-docker run --network=mjnet --rm -e PORT=4000 -e LOG_HTTP_BODY=true -e LOG_HTTP_HEADERS=true --name echo jmalloc/echo-server
-docker run --network=mjnet --rm -e ENDPOINT=echo -e PORT=4000 dev-random
-
-docker run -v /dev/urandom:/mounted --network=mjnet --rm -e ENDPOINT=echo -e PORT=4000 dev-random
-
-docker system df -v
-
-<!-- docker run --detach -P jmalloc/echo-server -->
-<!-- docker run -i -t --rm --env-file=./config.env -p $(PORT):$(PORT) --name="$(APP_NAME)" $(APP_NAME) -->
-
-## Building images
-
-
-
