@@ -12,7 +12,6 @@
 # NOTES
 
 This project demonstrates a docker container mounting a device and reading, and processing, data from that device. The docker container.
-
 ## Ingress module description
 The simple ingress module mounts the linux random device to generate and forward a random hash string.
 
