@@ -2,16 +2,16 @@
 
 |              |                                                            |
 | ------------ | ---------------------------------------------------------- |
-| name         | Python Ingress Module Boilerplate                          |
+| name         | Dev Random module                                          |
 | version      | v0.0.1                                                     |
 | docker image | [weevenetwork/weeve-boilerplate](https://linktodockerhub/) |
-| tags         | Python, Flask, Docker, Weeve                               |
-| authors      | Sanyam Arya                                                |
-
+| tags         | Docker, Weeve                                              |
+| authors      | Marcus Jones                                               |
 
 # NOTES
 
 This project demonstrates a docker container mounting a device and reading, and processing, data from that device. The docker container.
+
 ## Ingress module description
 The simple ingress module mounts the linux random device to generate and forward a random hash string.
 
@@ -44,3 +44,13 @@ The `curl` utility is used to send HTTP data as a POST request. To avoid escapin
 
 `echo $JSON_STRING | curl -d @- -H "Content-Type: application/json" -X POST http://url:port`
 
+# Testing
+```bash
+# In one terminal;
+NETWORK_NAME=testnet
+docker network create $NETWORK_NAME
+docker run --network=$NETWORK_NAME --rm -e PORT=4000 -e LOG_HTTP_BODY=true -e LOG_HTTP_HEADERS=true --name echo jmalloc/echo-server
+# In second terminal;
+NETWORK_NAME=testnet
+docker run --network=$NETWORK_NAME --rm -e ENDPOINT=echo -e PORT=4000 dev-random
+```
