@@ -6,6 +6,8 @@ env
 
 if test [ -f /mounted ] ; then
     echo "Mounted"
+else
+    exit Error: Expected a mounted file at /mounted
 fi
 
 # echo head -n 4096 /dev/urandom | sha256sum

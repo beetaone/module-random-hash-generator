@@ -2,20 +2,25 @@
 
 |              |                                                            |
 | ------------ | ---------------------------------------------------------- |
-| name         | Dev Random module                                          |
+| name         | Dev Random Ingress                                         |
+| type         | ingress |
 | version      | v0.0.1                                                     |
 | docker image | [weevenetwork/weeve-boilerplate](https://linktodockerhub/) |
-| tags         | Docker, Weeve                                              |
+| tags         | Docker, Weeve, MVP                                              |
 | authors      | Marcus Jones                                               |
 
-# NOTES
+# Description
+This module and project demonstrates a docker container mounting a device from the host, reading data, and processing data from that device.
 
-This project demonstrates a docker container mounting a device and reading, and processing, data from that device. The docker container.
+# Features
+- Simple and lightweight for testing
+
+# Technical implementation
 
 ## Ingress module description
 The simple ingress module mounts the linux random device to generate and forward a random hash string.
 
-### Random data device
+## Random data device
 The /dev/urandom device node in linux generates unlimited random bytes of data. The data is generated from the entropy pool.
 
 Bytes can be collected in various ways, just as from any file;
@@ -28,21 +33,26 @@ The `head` utility can read lines of a file. The following command would read 40
 
 `random=$(head -n 4096 /dev/urandom)`
 
-### Generate hash string
+## Generate hash string
 The `sha256sum` utility hashes input. The utility outputs a `-` characture which can be cut for a clean output.
 
 `echo My data | sha256sum | cut -f 1 -d " "`
 
-### Package into JSON payload
+## Package into JSON payload
 The `jq` utility can be used to package data into a JSON structure. The following command would place a variable `$randomstring` into the key value pair.
 
 `JSON_STRING=$( jq -n -r --arg hs "$randomstring" '{"random hash": $hs}' )`
 
-### Send as HTTP post
+## Send as HTTP post
 
 The `curl` utility is used to send HTTP data as a POST request. To avoid escaping newline and space characters, the payload (`-d`) is piped in.
 
 `echo $JSON_STRING | curl -d @- -H "Content-Type: application/json" -X POST http://url:port`
+# Developing
+Recommend to install the [docker-pushrm](https://github.com/christian-korneck/docker-pushrm) plugin to publish READEM.md files.
+
+docker login
+
 
 # Testing
 ```bash
