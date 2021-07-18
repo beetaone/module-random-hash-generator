@@ -14,6 +14,7 @@ This module and project demonstrates a docker container mounting a device from t
 
 # Features
 - Simple and lightweight for testing
+- Strict assertions in shell script for parameters and volumes
 
 # Technical implementation
 
