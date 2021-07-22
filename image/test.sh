@@ -4,14 +4,18 @@
 # PIPESTATUS with a simple $?, but I don’t do that.
 set -o errexit -o pipefail -o noclobber -o nounset
 
-usage="$(basename "$0") [-h] [-s n] -- program to calculate the answer to life, the universe and everything
 
-where:
-    -h  show this help text
-    -s  set the seed value (default: 42)"
+function usage {
+    cat <<HELP_USAGE
+    usage: $0 --interval <ms> --hash <hash method>
+        -i|--interval
+        -s|--hash
+        -h|--help Display this message
+HELP_USAGE
+}
 
-OPTIONS=i:s:
-LONGOPTS=interval:,hash:
+OPTIONS=i:s:h
+LONGOPTS=interval:,hash:,help
 
 ! PARSED=$(getopt --options=$OPTIONS --longoptions=$LONGOPTS --name "$0" -- "$@")
 if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
@@ -27,8 +31,6 @@ while true; do
     case "$1" in
         -i|--interval)
             interval=$2
-            # echo "Interval $2"
-            # echo "OK Interval"
             if ! [[ "$interval" =~ ^[0-9]+$ ]]
             then
                 echo "ERROR Set interval to integer milliseconds"
@@ -41,6 +43,11 @@ while true; do
             # echo "Hash $2"
             # echo "OK hash"
             shift 2
+            ;;
+        -h|--help)
+            usage
+            shift 1
+            exit 0
             ;;
         --)
             shift

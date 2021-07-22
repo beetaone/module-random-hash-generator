@@ -1,4 +1,9 @@
 #!/bin/sh
+# More safety, by turning some bugs into errors.
+# Without `errexit` you don’t need ! and can replace
+# PIPESTATUS with a simple $?, but I don’t do that.
+set -o errexit -o pipefail -o noclobber -o nounset
+
 echo "Entrypoint script"
 
 # Assert number of args
@@ -16,6 +21,67 @@ then
     echo "Entrypoint validation error: Expected a character special file object at $VOLUME_CONTAINER"
     exit 1
 fi
+
+# Help message
+function usage {
+    cat <<HELP_USAGE
+    usage: $0 --interval <ms> --hash <hash method>
+        -i|--interval
+        -s|--hash
+        -h|--help Display this message
+HELP_USAGE
+}
+
+#####################
+# Parameter parsing #
+#####################
+OPTIONS=i:s:h # Colon expects a parameter
+LONGOPTS=interval:,hash:,help
+
+! PARSED=$(getopt --options=$OPTIONS --longoptions=$LONGOPTS --name "$0" -- "$@")
+if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
+    exit 2
+fi
+
+eval set -- "$PARSED"
+
+# Defaults
+interval=3000
+hash=sha256
+while true; do
+    case "$1" in
+        -i|--interval)
+            interval=$2
+            if ! [[ "$interval" =~ ^[0-9]+$ ]]
+            then
+                echo "ERROR Set interval to integer milliseconds"
+                exit 1
+            fi
+            shift 2
+            ;;
+        -s|--hash)
+            hash=$2
+            # echo "Hash $2"
+            # echo "OK hash"
+            shift 2
+            ;;
+        -h|--help)
+            usage
+            shift 1
+            exit 0
+            ;;
+        --)
+            shift
+            break
+            ;;
+        *)
+            echo "Programming error"
+            exit 3
+            ;;
+    esac
+done
+
+echo $interval, $hash
 
 # Assert hash functions exist as executables
 if ! [ -x "$(command -v md5sum)" ]
@@ -35,7 +101,7 @@ then
 fi
 
 # Assert parameter matches
-case $1 in
+case $hash in
     md5)
         # Get 4096 bytes of random data. Take the hash. Do not keep the dash after the string. Assign to variable.
         randomstring=$(head -n 4096 $VOLUME_CONTAINER | md51sum | cut -f 1 -d " ")
