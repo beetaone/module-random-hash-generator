@@ -2,9 +2,11 @@
 echo "Entrypoint script"
 
 # Assert number of args
-if [ ! $# -eq 1 ]
+if [ ! $# -eq 2 ]
   then
-    echo "Expected 1 argument, either [sha256, sha1, or md5]"
+    echo "Expected 2 arguments;"
+    echo "1. [sha256, sha1, or md5]"
+    echo "2. <interval in ms>"
     exit 1
 fi
 
