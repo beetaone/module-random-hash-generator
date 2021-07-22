@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Build a JSON string. The JSON data may have spaces, newlines, etc.
 JSON_STRING=$( jq -n -r --arg hs "$randomstring" '{"random hash": $hs}' )
 echo $JSON_STRING

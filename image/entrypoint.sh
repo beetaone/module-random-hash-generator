@@ -1,19 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 # More safety, by turning some bugs into errors.
 # Without `errexit` you don’t need ! and can replace
 # PIPESTATUS with a simple $?, but I don’t do that.
 set -o errexit -o pipefail -o noclobber -o nounset
 
 echo "Entrypoint script"
-
-# Assert number of args
-if [ ! $# -eq 2 ]
-  then
-    echo "Expected 2 arguments;"
-    echo "1. [sha256, sha1, or md5]"
-    echo "2. <interval in ms>"
-    exit 1
-fi
+echo "$@"
 
 # Check volume mounts
 if [ ! -c $VOLUME_CONTAINER ]
@@ -61,8 +53,6 @@ while true; do
             ;;
         -s|--hash)
             hash=$2
-            # echo "Hash $2"
-            # echo "OK hash"
             shift 2
             ;;
         -h|--help)
@@ -116,7 +106,7 @@ case $hash in
         echo "Generated random SHA256 hash $randomstring from host"
     ;;
     *)
-        echo "Entrypoint validation error: expected [sha256, sha1, or md5]"
+        echo "Entrypoint validation error: expected --hash=[sha256, sha1, or md5]"
         exit 1
 esac
 
