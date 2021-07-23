@@ -36,7 +36,8 @@ run: ## Run container on port configured in `config.env`
 	docker run -i -t --rm --env-file=./config.env \
 		--volume $(VOLUME_HOST):$(VOLUME_CONTAINER) \
 		-p $(PORT):$(PORT) --name="$(APP_NAME)" \
-		$(ACCOUNT_NAME)/$(APP_NAME) --hash sha256 --interval=2000
+		-e ENDPOINT=localhost \
+		$(ACCOUNT_NAME)/$(APP_NAME) --hash sha256 --interval=2
 
 listen: ## Pull and start a listener
 	docker run --detach -e PORT=$(PORT) -e LOG_HTTP_BODY -e LOG_HTTP_HEADERS -p $(PORT):$(PORT) jmalloc/echo-server
