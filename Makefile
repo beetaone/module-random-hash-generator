@@ -50,6 +50,22 @@ up: build run ## Run container on port configured in `config.env` (Alias to run)
 # $(error "No lzop in $(PATH), consider doing apt-get install lzop")
 # endif
 
+listentest: ## Run a listener container and receive messages from this container
+	docker network create $(NETWORK_NAME) || true
+	docker run --detach --network=$(NETWORK_NAME) --rm \
+		-e PORT=4000 \
+		-e LOG_HTTP_BODY=true \
+		-e LOG_HTTP_HEADERS=true \
+		--name echo jmalloc/echo-server
+	docker run \
+		--network=$(NETWORK_NAME) --rm \
+		--volume $(VOLUME_HOST):$(VOLUME_CONTAINER) \
+		-e ENDPOINT=echo \
+		-e PORT=4000 \
+		-e VOLUME_HOST=/dev/urandom \
+		-e VOLUME_CONTAINER=/mnt/random \
+		$(ACCOUNT_NAME)/$(APP_NAME) --hash sha256 --interval=2
+
 push:
 	docker push $(ACCOUNT_NAME)/$(APP_NAME):latest
 	docker pushrm $(ACCOUNT_NAME)/$(APP_NAME):latest --short $(DESCRIPTION)
