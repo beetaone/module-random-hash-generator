@@ -66,9 +66,13 @@ listentest: ## Run a listener container and receive messages from this container
 		-e VOLUME_CONTAINER=/mnt/random \
 		$(ACCOUNT_NAME)/$(APP_NAME) --hash sha256 --interval=2
 
-push:
+push: ## Push to dockerhub, needs credentials!
+	docker push $(ACCOUNT_NAME)/$(APP_NAME):latest
+pushrm: ## Push to dockerhub AND add description, needs additionally the pushrm tool!
+## https://github.com/christian-korneck/docker-pushrm
 	docker push $(ACCOUNT_NAME)/$(APP_NAME):latest
 	docker pushrm $(ACCOUNT_NAME)/$(APP_NAME):latest --short $(DESCRIPTION)
+
 # docker run --rm -t \
 # 	-v $(pwd):/myvol \
 # 	-e DOCKER_USER='my-user' -e DOCKER_PASS='my-pass' \
