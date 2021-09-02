@@ -1,0 +1,49 @@
+version: 0.0.1
+name: dev-random
+description: Ingress module mounting the dev/random device to generate a SHA256 hash string.
+icon: https://icons-020-demo.s3.eu-central-1.amazonaws.com/USB.png
+type: input
+tags:
+  - dev
+  - random
+categories:
+  - id: category
+    name: Experimental
+image:
+  name: weevenetwork/dev-random
+  tag: latest
+environments:
+  - key: ENDPOINT
+    description: Endpoint address where data is sent.
+    value: echo
+    default: echo
+    type: string
+    name: Endpoint
+  - key: PORT
+    description: Endpoint port where data is sent.
+    value: 4000
+    default: 4000
+    type: integer
+    name: Port
+  - key: VOLUME_HOST
+    description: Volume mount host.
+    value: /dev/urandom
+    default: /dev/urandom
+    type: string
+    name: Volume Host
+  - key: VOLUME_CONTAINER
+    description: Volume mount container.
+    value: /mnt/random
+    default: /mnt/random
+    type: string
+    name: Volume Container
+document:
+  ports: []
+  volumes:
+    - host: /dev/urandom
+      container: /mnt/random
+  restart_policy:
+    condition: on-failure
+    delay: 10s
+    max_attempts: 3
+    window: 120s

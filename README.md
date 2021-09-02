@@ -63,5 +63,9 @@ docker network create $NETWORK_NAME
 docker run --network=$NETWORK_NAME --rm -e PORT=4000 -e LOG_HTTP_BODY=true -e LOG_HTTP_HEADERS=true --name echo jmalloc/echo-server
 # In second terminal;
 NETWORK_NAME=testnet
-docker run --network=$NETWORK_NAME --rm -e ENDPOINT=echo -e PORT=4000 dev-random
+VOLUME_HOST=/dev/urandom
+VOLUME_CONTAINER=/mnt/random
+APP_NAME=dev-random
+ACCOUNT_NAME=weevenetwork
+docker run --network=$(NETWORK_NAME) --rm --volume $(VOLUME_HOST):$(VOLUME_CONTAINER) -e ENDPOINT=echo -e PORT=4000 -e VOLUME_HOST=/dev/urandom -e VOLUME_CONTAINER=/mnt/random $(ACCOUNT_NAME)/$(APP_NAME) --hash sha256 --interval=2
 ```
