@@ -15,25 +15,25 @@ image:
 environments:
   - key: ENDPOINT
     description: Endpoint address where data is sent.
-    value: echo
+    value: ''
     default: echo
     type: string
     name: Endpoint
   - key: PORT
     description: Endpoint port where data is sent.
-    value: 4000
+    value: ''
     default: 4000
     type: integer
     name: Port
   - key: VOLUME_HOST
     description: Volume mount host.
-    value: /dev/urandom
+    value: ''
     default: /dev/urandom
     type: string
     name: Volume Host
   - key: VOLUME_CONTAINER
     description: Volume mount container.
-    value: /mnt/random
+    value: ''
     default: /mnt/random
     type: string
     name: Volume Container
