@@ -13,27 +13,23 @@ image:
   name: weevenetwork/dev-random
   tag: latest
 environments:
-  - key: ENDPOINT
-    description: Endpoint address where data is sent.
-    value: ''
-    default: echo
-    type: string
-    name: Endpoint
-  - key: PORT
-    description: Endpoint port where data is sent.
-    value: ''
-    default: 4000
-    type: integer
-    name: Port
-  - key: VOLUME_HOST
-    description: Volume mount host.
-    value: ''
-    default: /dev/urandom
-    type: string
-    name: Volume Host
   - key: VOLUME_CONTAINER
     description: Volume mount container.
-    value: ''
+    value: ""
+    default: /mnt/random
+    type: string
+    name: Volume Container
+command:
+  - key: hash
+    description: Volume mount container.
+    value: ""
+    default: /mnt/random
+    type: enum
+
+    name: Volume Container
+  - key: interval
+    description: Volume mount container.
+    value: ""
     default: /mnt/random
     type: string
     name: Volume Container

@@ -36,7 +36,7 @@ run: ## Run container on port configured in `config.env`
 	docker run -i -t --rm --env-file=./config.env \
 		--volume $(VOLUME_HOST):$(VOLUME_CONTAINER) \
 		-p $(PORT):$(PORT) --name="$(APP_NAME)" \
-		-e ENDPOINT=localhost \
+		-e EGRESS_API_HOST=localhost \
 		$(ACCOUNT_NAME)/$(APP_NAME) --hash sha256 --interval=2
 
 listen: ## Pull and start a listener
@@ -60,9 +60,8 @@ listentest: ## Run a listener container and receive messages from this container
 	docker run \
 		--network=$(NETWORK_NAME) --rm \
 		--volume $(VOLUME_HOST):$(VOLUME_CONTAINER) \
-		-e ENDPOINT=echo \
+		-e EGRESS_API_HOST=echo \
 		-e PORT=4000 \
-		-e VOLUME_HOST=/dev/urandom \
 		-e VOLUME_CONTAINER=/mnt/random \
 		$(ACCOUNT_NAME)/$(APP_NAME) --hash sha256 --interval=2
 
