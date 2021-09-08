@@ -1,5 +1,9 @@
 #!/bin/bash
 
+
+export EGRESS_API_PORT="${EGRESS_API_PORT:=80}"
+echo "PORT: $EGRESS_API_PORT"
+
 while true; do
 
     # Collect bytes and hash them
@@ -29,9 +33,9 @@ while true; do
 
     # Can't simply use -d $JSON_STRING, as this has newlines, spaces.
     # Instead, pipe it into the command.
-    echo -e "\ndev-random: POST to http://$ENDPOINT:$PORT"
+    echo -e "\ndev-random: POST to http://$EGRESS_API_HOST:$EGRESS_API_PORT"
     # POST this to the target
-    echo $JSON_STRING | curl -d @- -H "Content-Type: application/json" -X POST http://$ENDPOINT:$PORT || echo "Curl exited with status $?"
+    echo $JSON_STRING | curl -d @- -H "Content-Type: application/json" -X POST http://$EGRESS_API_HOST:$EGRESS_API_PORT || echo "Curl exited with status $?"
 
     sleep $interval
 done
