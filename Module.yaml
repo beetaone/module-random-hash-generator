@@ -19,20 +19,23 @@ environments:
     default: /mnt/random
     type: string
     name: Volume Container
-command:
+commands:
   - key: hash
-    description: Volume mount container.
+    description: Hash type.
     value: ""
-    default: /mnt/random
+    default: sha256
     type: enum
-
-    name: Volume Container
+    options:
+      - md5
+      - sha1
+      - sha256
+    name: Hash
   - key: interval
-    description: Volume mount container.
+    description: Sleep interval.
     value: ""
-    default: /mnt/random
-    type: string
-    name: Volume Container
+    default: 2
+    type: integer
+    name: Interval
 document:
   ports: []
   volumes:
