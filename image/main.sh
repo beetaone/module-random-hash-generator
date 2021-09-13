@@ -36,6 +36,7 @@ while true; do
     echo -e "\ndev-random: POST to $EGRESS_API_HOST"
     # POST this to the target
     echo $JSON_STRING | curl -d @- -H "Content-Type: application/json" -X POST $EGRESS_API_HOST || echo "Curl exited with status $?"
-
+    echo "Sleeping: $interval"
     sleep $interval
+    echo "awake"
 done

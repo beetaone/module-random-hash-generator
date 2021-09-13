@@ -37,7 +37,7 @@ fi
 eval set -- "$PARSED"
 
 # Defaults
-interval=3000
+interval=10
 hash=sha256
 while true; do
     case "$1" in
