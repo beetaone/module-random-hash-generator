@@ -33,9 +33,9 @@ while true; do
 
     # Can't simply use -d $JSON_STRING, as this has newlines, spaces.
     # Instead, pipe it into the command.
-    echo -e "\ndev-random: POST to $EGRESS_API_HOST"
+    echo -e "\ndev-random: POST to $EGRESS_URL"
     # POST this to the target
-    echo $JSON_STRING | curl -d @- -H "Content-Type: application/json" -X POST $EGRESS_API_HOST || echo "Curl exited with status $?"
+    echo $JSON_STRING | curl -d @- -H "Content-Type: application/json" -X POST $EGRESS_URL || echo "Curl exited with status $?"
     echo "Sleeping: $interval"
     sleep $interval
     echo "awake"
