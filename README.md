@@ -4,7 +4,7 @@
 | ------------ | ---------------------------------------------------------- |
 | name         | Dev Random Ingress                                         |
 | type         | ingress                                                    |
-| version      | v0.0.1                                                     |
+| version      | v0.0.2                                                     |
 | docker image | [weevenetwork/dev-random](https://hub.docker.com/r/weevenetwork/dev-random) |
 | tags         | Docker, Weeve, MVP                                         |
 | authors      | Marcus Jones                                               |
