@@ -15,14 +15,14 @@ image:
 environments:
   - key: VOLUME_CONTAINER
     description: Volume mount container.
-    value: ""
+    value: ''
     default: /mnt/random
     type: string
     name: Volume Container
 commands:
   - key: hash
     description: Hash type.
-    value: ""
+    value: ''
     default: sha256
     type: enum
     options:
@@ -32,15 +32,16 @@ commands:
     name: Hash
   - key: interval
     description: Sleep interval.
-    value: ""
+    value: ''
     default: 2
     type: integer
     name: Interval
 document:
   ports: []
-  volumes:
-    - host: /dev/urandom
-      container: /mnt/random
+  mounts:
+    - Type: bind
+      Source: /dev/urandom
+      Target: /mnt/random
   restart_policy:
     condition: on-failure
     delay: 10s
