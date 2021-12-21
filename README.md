@@ -4,8 +4,8 @@
 | ------------ | ---------------------------------------------------------- |
 | name         | Dev Random Ingress                                         |
 | type         | ingress                                                    |
-| version      | v0.0.1                                                     |
-| docker image | [weevenetwork/weeve-boilerplate](https://linktodockerhub/) |
+| version      | v0.0.2                                                     |
+| docker image | [weevenetwork/dev-random](https://hub.docker.com/r/weevenetwork/dev-random) |
 | tags         | Docker, Weeve, MVP                                         |
 | authors      | Marcus Jones                                               |
 
@@ -67,5 +67,5 @@ VOLUME_HOST=/dev/urandom
 VOLUME_CONTAINER=/mnt/random
 APP_NAME=dev-random
 ACCOUNT_NAME=weevenetwork
-docker run --network=$NETWORK_NAME --rm --volume $VOLUME_HOST:$VOLUME_CONTAINER -e EGRESS_API_HOST=echo -e PORT=4000 -e VOLUME_CONTAINER=/mnt/random $ACCOUNT_NAME/$APP_NAME --hash sha256 --interval=2
+docker run --network=$NETWORK_NAME --rm --volume $VOLUME_HOST:$VOLUME_CONTAINER -e EGRESS_URL=echo -e PORT=4000 -e VOLUME_CONTAINER=/mnt/random $ACCOUNT_NAME/$APP_NAME --hash sha256 --interval=2
 ```
