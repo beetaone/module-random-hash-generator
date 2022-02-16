@@ -35,7 +35,7 @@ build: ## Build the container
 run: ## Run container on port configured in `config.env`
 	docker run -i -t --rm --env-file=./config.env \
 		--volume $(VOLUME_HOST):$(VOLUME_CONTAINER) \
-		-p $(PORT):$(PORT) --name="$(APP_NAME)" \
+		-p 80:80 --name="$(APP_NAME)" \
 		-e EGRESS_URL=localhost \
 		$(ACCOUNT_NAME)/$(APP_NAME) --hash sha256 --interval=2
 
@@ -60,9 +60,9 @@ listentest: ## Run a listener container and receive messages from this container
 	docker run \
 		--network=$(NETWORK_NAME) --rm \
 		--volume $(VOLUME_HOST):$(VOLUME_CONTAINER) \
-		-e EGRESS_URL=echo \
-		-e PORT=4000 \
+		-e EGRESS_URL=$(EGRESS_URL) \
 		-e VOLUME_CONTAINER=/mnt/random \
+		--name /$(APP_NAME) \
 		$(ACCOUNT_NAME)/$(APP_NAME) --hash sha256 --interval=2
 
 push: ## Push to dockerhub, needs credentials!
@@ -72,6 +72,10 @@ pushrm: ## Push to dockerhub AND add description, needs additionally the pushrm 
 ## https://github.com/christian-korneck/docker-pushrm
 	docker push $(ACCOUNT_NAME)/$(APP_NAME):latest
 	docker pushrm $(ACCOUNT_NAME)/$(APP_NAME):latest --short $(DESCRIPTION)
+
+clean:
+	docker container stop echo $(APP_NAME)
+	docker container rm echo $(APP_NAME)
 
 # docker run --rm -t \
 # 	-v $(pwd):/myvol \

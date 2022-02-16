@@ -1,9 +1,5 @@
 #!/bin/bash
 
-
-export EGRESS_API_PORT="${EGRESS_API_PORT:=80}"
-echo "PORT: $EGRESS_API_PORT"
-
 while true; do
 
     # Collect bytes and hash them
