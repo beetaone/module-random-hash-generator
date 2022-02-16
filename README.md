@@ -58,14 +58,15 @@ docker login
 # Testing
 ```bash
 # In one terminal;
-NETWORK_NAME=testnet
+NETWORK_NAME=dtestnet
 docker network create $NETWORK_NAME
 docker run --network=$NETWORK_NAME --rm -e PORT=4000 -e LOG_HTTP_BODY=true -e LOG_HTTP_HEADERS=true --name echo jmalloc/echo-server
 # In second terminal;
-NETWORK_NAME=testnet
+NETWORK_NAME=dtestnet
 VOLUME_HOST=/dev/urandom
 VOLUME_CONTAINER=/mnt/random
 APP_NAME=dev-random
 ACCOUNT_NAME=weevenetwork
-docker run --network=$NETWORK_NAME --rm --volume $VOLUME_HOST:$VOLUME_CONTAINER -e EGRESS_URL=echo -e PORT=4000 -e VOLUME_CONTAINER=/mnt/random $ACCOUNT_NAME/$APP_NAME --hash sha256 --interval=2
+EGRESS_URL=echo:4000
+docker run --network=$NETWORK_NAME --rm --volume $VOLUME_HOST:$VOLUME_CONTAINER -e EGRESS_URL=$EGRESS_URL -e VOLUME_CONTAINER=/mnt/random $ACCOUNT_NAME/$APP_NAME --hash sha256 --interval=2
 ```
