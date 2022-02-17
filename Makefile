@@ -27,7 +27,7 @@ help: ## This help.
 # DOCKER TASKS
 # Build the container
 build: ## Build the container
-	docker build -t $(ACCOUNT_NAME)/$(APP_NAME) . -f image/Dockerfile
+	docker build -t $(ACCOUNT_NAME)/$(APP_NAME):$(VERSION_TAG) . -f image/Dockerfile
 
 # build-nc: ## Build the container without caching
 # 	docker build --no-cache -t $(APP_NAME) .
@@ -70,8 +70,8 @@ push: ## Push to dockerhub, needs credentials!
 
 pushrm: ## Push to dockerhub AND add description, needs additionally the pushrm tool!
 ## https://github.com/christian-korneck/docker-pushrm
-	docker push $(ACCOUNT_NAME)/$(APP_NAME):latest
-	docker pushrm $(ACCOUNT_NAME)/$(APP_NAME):latest --short $(DESCRIPTION)
+	docker push $(ACCOUNT_NAME)/$(APP_NAME):$(VERSION_TAG)
+	docker pushrm $(ACCOUNT_NAME)/$(APP_NAME):$(VERSION_TAG) --short $(DESCRIPTION)
 
 clean:
 	docker container stop echo $(APP_NAME)
