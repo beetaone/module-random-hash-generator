@@ -66,7 +66,7 @@ listentest: ## Run a listener container and receive messages from this container
 		$(ACCOUNT_NAME)/$(APP_NAME) --hash sha256 --interval=2
 
 push: ## Push to dockerhub, needs credentials!
-	docker push $(ACCOUNT_NAME)/$(APP_NAME):latest
+	docker push $(ACCOUNT_NAME)/$(APP_NAME):$(VERSION_TAG)
 
 pushrm: ## Push to dockerhub AND add description, needs additionally the pushrm tool!
 ## https://github.com/christian-korneck/docker-pushrm
