@@ -5,7 +5,10 @@
 set -o errexit -o pipefail -o noclobber -o nounset
 
 echo "Entrypoint script for dev-random"
-echo "$@"
+
+echo "Variables are set as following:"
+echo "EGRESS_URL=$EGRESS_URL"
+echo "VOLUME_CONTAINER=$VOLUME_CONTAINER"
 
 # Check volume mounts
 if [ ! -c $VOLUME_CONTAINER ]; then
@@ -69,7 +72,8 @@ while true; do
     esac
 done
 
-echo $interval, $hash
+echo "Hash=$hash"
+echo "Interval=$interval"
 
 # Assert hash functions exist as executables
 if ! [ -x "$(command -v md5sum)" ]; then
