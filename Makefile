@@ -142,6 +142,6 @@ clean:
 # version: ## Output the current version
 # 	@echo $(VERSION)
 
-build_and_push_multi_platform:
+create_and_push_multi_platform:
 	docker buildx build --platform linux/amd64,linux/arm,linux/arm64 -t $(ACCOUNT_NAME)/$(MODULE_NAME) --push . -f image/Dockerfile
 .phony: create_and_push_multi_platform
