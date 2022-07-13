@@ -37,9 +37,9 @@ fi
 # Help message
 function usage {
     cat <<HELP_USAGE
-    usage: $0 --interval <s> --hash <hash method>
-        -i|--interval in seconds
-        -s|--hash method
+    usage: $0 --INTERVAL <s> --HASH <hash method>
+        -i|--INTERVAL in seconds
+        -s|--HASH method
         -h|--help Display this message
 HELP_USAGE
 }
@@ -48,7 +48,7 @@ HELP_USAGE
 # Parameter parsing #
 #####################
 OPTIONS=i:s:h # Colon expects a parameter
-LONGOPTS=interval:,hash:,help
+LONGOPTS=INTERVAL:,HASH:,help
 
 ! PARSED=$(getopt --options=$OPTIONS --longoptions=$LONGOPTS --name "$0" -- "$@")
 if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
@@ -58,20 +58,20 @@ fi
 eval set -- "$PARSED"
 
 # Defaults
-interval=10
-hash=sha256
+INTERVAL=10
+HASH=sha256
 while true; do
     case "$1" in
-    -i | --interval)
-        interval=$2
-        if ! [[ "$interval" =~ ^[0-9]+$ ]]; then
+    -i | --INTERVAL)
+        INTERVAL=$2
+        if ! [[ "$INTERVAL" =~ ^[0-9]+$ ]]; then
             echo "ERROR Set interval to integer seconds"
             exit 1
         fi
         shift 2
         ;;
-    -s | --hash)
-        hash=$2
+    -s | --HASH)
+        HASH=$2
         shift 2
         ;;
     -h | --help)
@@ -90,8 +90,8 @@ while true; do
     esac
 done
 
-echo "Hash=$hash"
-echo "Interval=$interval"
+echo "Hash=$HASH"
+echo "Interval=$INTERVAL"
 
 # Assert hash functions exist as executables
 if ! [ -x "$(command -v md5sum)" ]; then
@@ -108,7 +108,7 @@ if ! [ -x "$(command -v sha256sum)" ]; then
 fi
 
 # Assert parameter matches
-case $hash in
+case $HASH in
 md5) ;;
 
 sha1) ;;
@@ -116,7 +116,7 @@ sha1) ;;
 sha256) ;;
 
 *)
-    echo "Entrypoint validation error: expected --hash=[sha256, sha1, or md5]"
+    echo "Entrypoint validation error: expected --HASH=[sha256, sha1, or md5]"
     exit 1
     ;;
 esac
