@@ -1,30 +1,29 @@
 displayName: 'Dev Random'
-moduleName: 'dev-random'       
+moduleName: 'dev-random'
 description: 'Ingress module mounting the dev/random device to generate a SHA256 hash string.'
 versionName: 'v1.0.0'
-isPublic: true                   
-categories:                           
+isPublic: true
+categories:
   - 'Experimental'
-type: 'Input' 
+type: 'Input'
 image:
   name: 'weevenetwork/dev-random'
-  tag: 'latest'             
+  tag: 'latest'
   homepage: 'https://hub.docker.com/weevenetwork/dev-random'
-repository: 'https://github.com/weeve-modules/dev-random' 
+repository: 'https://github.com/weeve-modules/dev-random'
 envs:
   - name: Volume Container
-    key: VOLUME_CONTAINER           
+    key: VOLUME_CONTAINER
     description: Volume mount container
     value: ''
     type: 'string'
     dependencies: []
-commands:
   - name: Hash
     key: hash
     description: hash type
     value: ''
     type: 'select'
-    options:          
+    options:
       - md5
       - sha1
       - sha256
@@ -35,11 +34,11 @@ commands:
     value: ''
     type: 'number'
     dependencies: []
-ports: []           
+ports: []
 mounts:
   - container: '/mnt/random'
-    host: '/dev/urandom'                
-tags:            
+    host: '/dev/urandom'
+tags:
   - 'Bash'
   - 'Input'
   - 'Hash'

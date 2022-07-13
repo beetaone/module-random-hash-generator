@@ -8,5 +8,3 @@ SHELL ["/bin/bash", "-c"]
 COPY ./docker/docker-entrypoint.sh ./src/main.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-
-EXPOSE 80
