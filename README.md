@@ -1,8 +1,8 @@
-# Python Input Module Boilerplate
+# Dev Random
 
 |              |                                                                             |
 | ------------ | --------------------------------------------------------------------------- |
-| name         | Dev Random                                                                  |
+| name         | dev-random                                                                  |
 | type         | Input                                                                       |
 | version      | v1.0.0                                                                      |
 | docker image | [weevenetwork/dev-random](https://hub.docker.com/r/weevenetwork/dev-random) |
