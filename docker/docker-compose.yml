@@ -1,0 +1,15 @@
+version: "3.0"
+networks:
+  default:
+    name: dev_random_network
+services:
+  dev_random:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    ports:
+      - 80:80
+    volumes:
+    - /dev/urandom:/mnt/random
+    env_file:
+    - ../.env

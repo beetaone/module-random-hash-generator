@@ -1,49 +1,48 @@
-version: 1.0.0
-name: dev-random
-description: Ingress module mounting the dev/random device to generate a SHA256 hash string.
-icon: https://icons-020-demo.s3.eu-central-1.amazonaws.com/mi_DevRandom_input.png
-type: input
-tags:
-  - dev
-  - random
+displayName: 'Dev Random'
+moduleName: 'dev-random'
+description: 'Ingress module mounting the dev/random device to generate a SHA256 hash string.'
+versionName: 'v1.0.0'
+isPublic: true
 categories:
-  - id: category
-    name: Experimental
+  - 'Experimental'
+type: 'Input'
 image:
-  name: weevenetwork/dev-random
-  tag: latest
-environments:
-  - key: VOLUME_CONTAINER
-    description: Volume mount container.
+  name: 'weevenetwork/dev-random'
+  tag: 'v1.0.0'
+  homepage: 'https://hub.docker.com/r/weevenetwork/dev-random'
+repository: 'https://github.com/weeve-modules/dev-random'
+envs:
+  - name: Volume Container
+    key: VOLUME_CONTAINER
+    description: Volume mount container
     value: ''
-    default: /mnt/random
-    type: string
-    name: Volume Container
-commands:
-  - key: hash
+    type: 'string'
+    options: []
+    dependencies: []
+  - name: Hash
+    key: hash
     description: Hash type.
     value: ''
-    default: sha256
-    type: enum
+    type: 'select'
     options:
       - md5
       - sha1
       - sha256
-    name: Hash
-  - key: interval
+    dependencies: []
+  - name: Interval
+    key: interval
     description: Sleep interval.
     value: ''
-    default: 2
-    type: integer
-    name: Interval
-document:
-  ports: []
-  mounts:
-    - Type: bind
-      Source: /dev/urandom
-      Target: /mnt/random
-  restart_policy:
-    condition: on-failure
-    delay: 10s
-    max_attempts: 3
-    window: 120s
+    type: 'number'
+    options: []
+    dependencies: []
+ports: []
+mounts:
+  - container: '/mnt/random'
+    host: '/dev/urandom'
+tags:
+  - 'Bash'
+  - 'Input'
+  - 'Hash'
+icon: 'https://icons-020-demo.s3.eu-central-1.amazonaws.com/mi_DevRandom_input.png'
+

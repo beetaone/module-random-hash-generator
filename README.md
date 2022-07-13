@@ -1,22 +1,22 @@
-# dev-random
+# Dev Random
 
 |              |                                                                             |
 | ------------ | --------------------------------------------------------------------------- |
-| name         | Dev Random Ingress                                                          |
-| type         | ingress                                                                     |
+| name         | dev-random                                                                  |
+| type         | Input                                                                       |
 | version      | v1.0.0                                                                      |
 | docker image | [weevenetwork/dev-random](https://hub.docker.com/r/weevenetwork/dev-random) |
 | tags         | Docker, Weeve, MVP                                                          |
 | authors      | Marcus Jones                                                                |
 
-# Description
+## Description
 
 This module and project demonstrates a docker container mounting a device from the host, reading data, and processing data from that device.
 
 # Features
 
-- Simple and lightweight for testing
-- Strict assertions in shell script for parameters and volumes
+-   Simple and lightweight for testing
+-   Strict assertions in shell script for parameters and volumes
 
 # Technical implementation
 
@@ -61,23 +61,3 @@ The `curl` utility is used to send HTTP data as a POST request. To avoid escapin
 Recommend to install the [docker-pushrm](https://github.com/christian-korneck/docker-pushrm) plugin to publish READEM.md files.
 
 docker login
-
-# Testing
-
-```bash
-# In one terminal;
-docker network create dtestnet
-docker run --detach --network=dtestnet --rm \
-		-e PORT=4000 \
-		-e LOG_HTTP_BODY=true \
-		-e LOG_HTTP_HEADERS=true \
-		--name echo jmalloc/echo-server
-# In second terminal;
-docker run --detach --rm \
-		--network=dtestnet \
-		--volume /dev/urandom:/mnt/random \
-		--name dev-random \
-        -e EGRESS_URL=http://echo:4000 \
-		-e VOLUME_CONTAINER=/mnt/random \
-		weevenetwork/dev-random:1.0.0 --hash sha256 --interval=2
-```
