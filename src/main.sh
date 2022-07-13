@@ -3,7 +3,7 @@
 while true; do
 
     # Collect bytes and hash them
-    case "$hash" in
+    case "$HASH" in
     md5)
         # Get 4096 bytes of random data. Take the hash. Do not keep the dash after the string. Assign to variable.
         randomstring=$(head -n 4096 "$VOLUME_CONTAINER" | md51sum | cut -f 1 -d " ")
@@ -18,7 +18,7 @@ while true; do
         echo -e "\ndev-random: generated random SHA256 hash $randomstring from host"
         ;;
     *)
-        echo "Validation error: expected --hash=[sha256, sha1, or md5]"
+        echo "Validation error: expected --HASH=[sha256, sha1, or md5]"
         exit 1
         ;;
     esac
@@ -32,7 +32,7 @@ while true; do
     echo -e "\ndev-random: POST to $EGRESS_URLS"
     # POST this to the target
     echo "$JSON_STRING" | curl -d @- -H "Content-Type: application/json" -X POST "$EGRESS_URLS" || echo "Curl exited with status $?"
-    echo "Sleeping: $interval"
-    sleep "$interval"
+    echo "Sleeping: $INTERVAL"
+    sleep "$INTERVAL"
     echo "awake"
 done

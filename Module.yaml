@@ -20,7 +20,7 @@ envs:
     options: []
     dependencies: []
   - name: Hash
-    key: hash
+    key: HASH
     description: Hash type.
     value: ''
     type: 'select'
@@ -30,7 +30,7 @@ envs:
       - sha256
     dependencies: []
   - name: Interval
-    key: interval
+    key: INTERVAL
     description: Sleep interval.
     value: ''
     type: 'number'
