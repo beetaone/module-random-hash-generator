@@ -8,8 +8,8 @@ categories:
 type: 'Input'
 image:
   name: 'weevenetwork/dev-random'
-  tag: 'latest'
-  homepage: 'https://hub.docker.com/weevenetwork/dev-random'
+  tag: 'v1.0.0'
+  homepage: 'https://hub.docker.com/r/weevenetwork/dev-random'
 repository: 'https://github.com/weeve-modules/dev-random'
 envs:
   - name: Volume Container
@@ -17,10 +17,11 @@ envs:
     description: Volume mount container
     value: ''
     type: 'string'
+    options: []
     dependencies: []
   - name: Hash
     key: hash
-    description: hash type
+    description: Hash type.
     value: ''
     type: 'select'
     options:
@@ -30,9 +31,10 @@ envs:
     dependencies: []
   - name: Interval
     key: interval
-    description: sleep interval
+    description: Sleep interval.
     value: ''
     type: 'number'
+    options: []
     dependencies: []
 ports: []
 mounts:
