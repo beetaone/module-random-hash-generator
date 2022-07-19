@@ -16,7 +16,7 @@ envs:
     key: VOLUME_CONTAINER
     description: Volume mount container
     value: ''
-    type: 'string'
+    type: 'text'
     options: []
     dependencies: []
   - name: Hash
