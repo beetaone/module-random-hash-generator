@@ -37,6 +37,10 @@ envs:
     options: []
     dependencies: []
 ports: []
+envPorts: []
+envMounts: []
+devices: []
+envDevices: []
 mounts:
   - container: '/mnt/random'
     host: '/dev/urandom'
