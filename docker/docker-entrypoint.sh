@@ -28,67 +28,16 @@ else
 fi
 echo "[ENTRYPOINT] Environment validated."
 
-# Check volume mounts
-if [ ! -c "$VOLUME_CONTAINER" ]; then
-    echo "Entrypoint validation error: Expected a character special file object at $VOLUME_CONTAINER"
-    exit 1
-fi
-
-# Help message
-function usage {
-    cat <<HELP_USAGE
-    usage: $0 --INTERVAL <s> --HASH <hash method>
-        -i|--INTERVAL in seconds
-        -s|--HASH method
-        -h|--help Display this message
-HELP_USAGE
-}
-
-#####################
-# Parameter parsing #
-#####################
-OPTIONS=i:s:h # Colon expects a parameter
-LONGOPTS=INTERVAL:,HASH:,help
-
-! PARSED=$(getopt --options=$OPTIONS --longoptions=$LONGOPTS --name "$0" -- "$@")
-if [[ ${PIPESTATUS[0]} -ne 0 ]]; then
-    exit 2
-fi
-
-eval set -- "$PARSED"
-
 # Defaults
-INTERVAL=10
-HASH=sha256
-while true; do
-    case "$1" in
-    -i | --INTERVAL)
-        INTERVAL=$2
-        if ! [[ "$INTERVAL" =~ ^[0-9]+$ ]]; then
-            echo "ERROR Set interval to integer seconds"
-            exit 1
-        fi
-        shift 2
-        ;;
-    -s | --HASH)
-        HASH=$2
-        shift 2
-        ;;
-    -h | --help)
-        usage
-        shift 1
-        exit 0
-        ;;
-    --)
-        shift
-        break
-        ;;
-    *)
-        echo "Programming error"
-        exit 3
-        ;;
-    esac
-done
+if [ -z "$INTERVAL" ]; then
+    INTERVAL=10
+fi
+if [ -z "$HASH" ]; then
+    HASH=sha256
+fi
+if [ -z "$LABEL" ]; then
+    LABEL="hash"
+fi
 
 echo "Hash=$HASH"
 echo "Interval=$INTERVAL"
@@ -116,7 +65,7 @@ sha1) ;;
 sha256) ;;
 
 *)
-    echo "Entrypoint validation error: expected --HASH=[sha256, sha1, or md5]"
+    echo "Entrypoint validation error: expected HASH=[sha256, sha1, or md5]"
     exit 1
     ;;
 esac

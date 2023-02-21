@@ -1,22 +1,51 @@
-# Dev Random
+# Random Hash Generator
 
-|              |                                                                             |
-| ------------ | --------------------------------------------------------------------------- |
-| name         | dev-random                                                                  |
-| type         | Input                                                                       |
-| version      | v1.0.0                                                                      |
-| docker image | [weevenetwork/dev-random](https://hub.docker.com/r/weevenetwork/dev-random) |
-| tags         | Docker, Weeve, MVP                                                          |
-| authors      | Marcus Jones                                                                |
+|           |                                                                             |
+| --------- | --------------------------------------------------------------------------- |
+| Name      | Random Hash Generator                                                       |
+| Version   | v2.0.0                                                                      |
+| DockerHub | [weevenetwork/dev-random](https://hub.docker.com/r/weevenetwork/dev-random) |
+| Authors   | Marcus Jones                                                                |
+
+- [Random Hash Generator](#random-hash-generator)
+  - [Description](#description)
+- [Features](#features)
+  - [Environment Variables](#environment-variables)
+    - [Module Specific](#module-specific)
+    - [Set by the weeve Agent on the edge-node](#set-by-the-weeve-agent-on-the-edge-node)
+- [Technical implementation](#technical-implementation)
+  - [Ingress module description](#ingress-module-description)
+  - [Random data device](#random-data-device)
+  - [Generate hash string](#generate-hash-string)
+  - [Package into JSON payload](#package-into-json-payload)
+  - [Send as HTTP post](#send-as-http-post)
 
 ## Description
 
-This module and project demonstrates a docker container mounting a device from the host, reading data, and processing data from that device.
+This module and project demonstrates a docker container reading data from a device (/dev/random), processing it (hashing) and sending it to the next module.
 
 # Features
 
 -   Simple and lightweight for testing
 -   Strict assertions in shell script for parameters and volumes
+
+## Environment Variables
+
+### Module Specific
+
+| Environment Variables | type   | Description                   |
+| --------------------- | ------ | ----------------------------- |
+| HASH                  | string | Hash function                 |
+| INTERVAL              | string | Sleep interval in seconds     |
+| LABEL                 | string | JSON key for the output hash. |
+
+### Set by the weeve Agent on the edge-node
+
+| Environment Variables | type   | Description                                    |
+| --------------------- | ------ | ---------------------------------------------- |
+| MODULE_NAME           | string | Name of the module                             |
+| MODULE_TYPE           | string | Type of the module (Input, Processing, Output) |
+| EGRESS_URLS           | string | HTTP ReST endpoint for the next module         |
 
 # Technical implementation
 
@@ -55,9 +84,3 @@ The `jq` utility can be used to package data into a JSON structure. The followin
 The `curl` utility is used to send HTTP data as a POST request. To avoid escaping newline and space characters, the payload (`-d`) is piped in.
 
 `echo $JSON_STRING | curl -d @- -H "Content-Type: application/json" -X POST http://url:port`
-
-# Developing
-
-Recommend to install the [docker-pushrm](https://github.com/christian-korneck/docker-pushrm) plugin to publish READEM.md files.
-
-docker login

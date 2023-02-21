@@ -1,7 +1,7 @@
 SHELL := /bin/bash # to enable source command in run_app
 
 MODULE=weevenetwork/dev-random
-VERSION_NAME=v1.0.0
+VERSION_NAME=v2.0.0
 
 create_image:
 	docker build -t ${MODULE}:${VERSION_NAME} . -f docker/Dockerfile
