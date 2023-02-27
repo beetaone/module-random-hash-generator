@@ -4,7 +4,7 @@
 | --------- | --------------------------------------------------------------------------- |
 | Name      | Random Hash Generator                                                       |
 | Version   | v2.0.0                                                                      |
-| DockerHub | [weevenetwork/dev-random](https://hub.docker.com/r/weevenetwork/dev-random) |
+| DockerHub | [weevenetwork/random-hash-generator](https://hub.docker.com/r/weevenetwork/random-hash-generator) |
 | Authors   | Marcus Jones                                                                |
 
 - [Random Hash Generator](#random-hash-generator)

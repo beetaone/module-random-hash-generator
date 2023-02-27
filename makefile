@@ -1,6 +1,6 @@
 SHELL := /bin/bash # to enable source command in run_app
 
-MODULE=weevenetwork/dev-random
+MODULE=weevenetwork/random-hash-generator
 VERSION_NAME=v2.0.0
 
 create_image:
@@ -8,11 +8,11 @@ create_image:
 .phony: create_image
 
 run_image:
-	docker run --rm -p 80:80 -v /dev/urandom:/mnt/random --network dev_random_network --name dev-random --env-file=./.env ${MODULE}:${VERSION_NAME}
+	docker run --rm -p 80:80 -v /dev/urandom:/mnt/random --network random_hash_generator_network --name random-hash-generator --env-file=./.env ${MODULE}:${VERSION_NAME}
 .phony: run_image
 
 create_network:
-	docker network create dev_random_network
+	docker network create random_hash_generator_network
 .phony: create_network
 
 run_docker_compose:
@@ -44,7 +44,7 @@ run_echo:
 	-e PORT=9000 \
 	-e LOG_HTTP_BODY=true \
 	-e LOG_HTTP_HEADERS=true \
-	--network dev_random_network \
+	--network random_hash_generator_network \
 	--name echo \
 	jmalloc/echo-server
 .phony: run_echo
