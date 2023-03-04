@@ -1,28 +1,21 @@
-displayName: 'Dev Random'
-moduleName: 'dev-random'
-description: 'Ingress module mounting the dev/random device to generate a SHA256 hash string.'
-versionName: 'v1.0.0'
+displayName: 'Random Hash Generator'
+moduleName: 'random-hash-generator'
+description: 'Ingress module generating a random hash string by reading from /dev/random and hashing the bytes.'
+versionName: 'v2.0.0'
 isPublic: true
 categories:
   - 'Experimental'
 type: 'Input'
 image:
-  name: 'weevenetwork/dev-random'
-  tag: 'v1.0.0'
-  homepage: 'https://hub.docker.com/r/weevenetwork/dev-random'
-repository: 'https://github.com/weeve-modules/dev-random'
+  name: 'weevenetwork/random-hash-generator'
+  tag: 'v2.0.0'
+  homepage: 'https://hub.docker.com/r/weevenetwork/random-hash-generator'
+repository: 'https://github.com/weeve-modules/random-hash-generator'
 envs:
-  - name: Volume Container
-    key: VOLUME_CONTAINER
-    description: Volume mount container
-    value: ''
-    type: 'text'
-    options: []
-    dependencies: []
   - name: Hash
     key: HASH
-    description: Hash type.
-    value: ''
+    description: Hash function.
+    value: 'sha256'
     type: 'select'
     options:
       - md5
@@ -31,19 +24,24 @@ envs:
     dependencies: []
   - name: Interval
     key: INTERVAL
-    description: Sleep interval.
-    value: ''
+    description: Sleep interval in seconds.
+    value: '15'
     type: 'number'
+    options: []
+    dependencies: []
+  - name: Output label
+    key: LABEL
+    description: JSON key for the output hash.
+    value: 'hash'
+    type: 'text'
     options: []
     dependencies: []
 ports: []
 envPorts: []
+mounts: []
 envMounts: []
 devices: []
 envDevices: []
-mounts:
-  - container: '/mnt/random'
-    host: '/dev/urandom'
 tags:
   - 'Bash'
   - 'Input'

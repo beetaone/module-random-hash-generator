@@ -1,15 +1,13 @@
 version: "3.0"
 networks:
   default:
-    name: dev_random_network
+    name: random_hash_generator_network
 services:
-  dev_random:
+  random_hash_generator:
     build:
       context: ../
       dockerfile: docker/Dockerfile
     ports:
       - 80:80
-    volumes:
-    - /dev/urandom:/mnt/random
     env_file:
     - ../.env
