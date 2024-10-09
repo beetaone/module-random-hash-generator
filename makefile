@@ -1,6 +1,6 @@
 SHELL := /bin/bash # to enable source command in run_app
 
-MODULE=weevenetwork/random-hash-generator
+MODULE=beetaone/random-hash-generator
 VERSION_NAME=v2.0.0
 
 create_image:
@@ -47,4 +47,4 @@ run_echo:
 	--network random_hash_generator_network \
 	--name echo \
 	jmalloc/echo-server
-.phony: run_echo
+.phony: run_echoecho

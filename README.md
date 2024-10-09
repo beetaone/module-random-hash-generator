@@ -4,7 +4,7 @@
 | --------- | --------------------------------------------------------------------------- |
 | Name      | Random Hash Generator                                                       |
 | Version   | v2.0.0                                                                      |
-| DockerHub | [weevenetwork/random-hash-generator](https://hub.docker.com/r/weevenetwork/random-hash-generator) |
+| DockerHub | [beetaone/random-hash-generator](https://hub.docker.com/r/beetaone/random-hash-generator) |
 | Authors   | Marcus Jones                                                                |
 
 - [Random Hash Generator](#random-hash-generator)
@@ -12,7 +12,7 @@
 - [Features](#features)
   - [Environment Variables](#environment-variables)
     - [Module Specific](#module-specific)
-    - [Set by the weeve Agent on the edge-node](#set-by-the-weeve-agent-on-the-edge-node)
+    - [Set by the beetaone Agent on the edge-node](#set-by-the-beetaone-agent-on-the-edge-node)
 - [Technical implementation](#technical-implementation)
   - [Ingress module description](#ingress-module-description)
   - [Random data device](#random-data-device)
@@ -39,7 +39,7 @@ This module and project demonstrates a docker container reading data from a devi
 | INTERVAL              | string | Sleep interval in seconds     |
 | LABEL                 | string | JSON key for the output hash. |
 
-### Set by the weeve Agent on the edge-node
+### Set by the beetaone Agent on the edge-node
 
 | Environment Variables | type   | Description                                    |
 | --------------------- | ------ | ---------------------------------------------- |
